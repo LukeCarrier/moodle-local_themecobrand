@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<XMLDB PATH="local/tdmcobrand/db" VERSION="20140121" COMMENT="Theme co-branding">
+    <!--
+      == Theme co-branding.
+      ==
+      == Enables customised per-organisation theming for TotaraLMS.
+      ==
+      == @author Luke Carrier <luke@tdm.co>
+      == @copyright (c) The Development Manager Ltd
+      == @license GPL v3
+      -->
+
+    <TABLES>
+        <TABLE NAME="local_tdmcobrand_rules" COMMENT="Stores theme co-branding ruleset">
+            <FIELDS>
+                <FIELD NAME="id"             TYPE="int"  LENGTH="10"  NOTNULL="true"  SEQUENCE="true"  />
+                <FIELD NAME="organisationid" TYPE="int"  LENGTH="10"  NOTNULL="true"  SEQUENCE="false" />
+                <FIELD NAME="applycss"       TYPE="text"              NOTNULL="false"                  />
+                <FIELD NAME="applylogo"      TYPE="int"  LENGTH="10"  NOTNULL="false" SEQUENCE="false" />
+                <FIELD NAME="applytheme"     TYPE="char" LENGTH="100" NOTNULL="false"                  />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
