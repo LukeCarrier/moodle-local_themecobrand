@@ -25,6 +25,8 @@
  * @license GPL v3
  */
 
+use local_themecobrand\rule;
+
 define('AJAX_SCRIPT', true);
 
 error_reporting(E_ALL);
@@ -34,7 +36,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 
 $organisationid = required_param('organisationid', PARAM_INT);
 
-$rule = local_themecobrand_rule::from_organisation_id($organisationid);
+$rule = rule::from_organisation_id($organisationid);
 
 header('Content-Type: text/css');
 echo $rule->get_css();

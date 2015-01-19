@@ -25,6 +25,9 @@
  * @license GPL v3
  */
 
+use local_themecobrand\rule;
+use local_themecobrand\rule_form;
+
 require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 require_once "{$CFG->libdir}/adminlib.php";
 require_once dirname(__FILE__) . '/locallib.php';
@@ -53,12 +56,12 @@ if ($organisation === false) {
 $framework = $hierarchy->get_framework($organisation->frameworkid);
 
 try {
-    $rule = local_themecobrand_rule::from_organisation_id($organisationid);
+    $rule = rule::from_organisation_id($organisationid);
 } catch (dml_missing_record_exception $e) {
-    $rule = new local_themecobrand_rule();
+    $rule = new rule();
 }
 
-$mform = new local_themecobrand_rule_form(null, array(
+$mform = new rule_form(null, array(
     'fileopts'     => $fileopts,
     'framework'    => $framework,
     'organisation' => $organisation,
