@@ -45,7 +45,9 @@ class rule {
     public static function from_organisation_id($organisationid) {
         global $DB;
 
-        $record = $DB->get_record(static::TABLE_RULES, array('organisationid' => $organisationid), '*', MUST_EXIST);
+        $record = $DB->get_record(static::TABLE_RULES,
+                                  array('organisationid' => $organisationid),
+                                  '*', MUST_EXIST);
 
         $instance = new static();
         $instance->id             = $record->id;
