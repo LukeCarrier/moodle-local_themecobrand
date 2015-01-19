@@ -40,6 +40,7 @@ class rule_form extends moodleform {
 
         $framework    = $this->_customdata['framework'];
         $organisation = $this->_customdata['organisation'];
+        $rule         = $this->_customdata['rule'];
 
         $mform->addElement('hidden', 'organisationid');
         $mform->setType('organisationid', PARAM_INT);
@@ -60,9 +61,12 @@ class rule_form extends moodleform {
         ), static::get_themes());
         $mform->addElement('select', 'applytheme',
                            static::get_string('applytheme'), $themes);
+        $mform->setDefault('applytheme', $rule->get_theme());
         $mform->setType('applytheme', PARAM_ALPHA);
 
-        // and here we grab the theme opts
+        if ($theme = $rule->get_theme()) {
+            $mform->addElement('html', util::theme_settings_form($theme));
+        }
 
         $this->add_action_buttons();
     }

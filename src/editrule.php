@@ -56,6 +56,7 @@ try {
 $mform = new rule_form(null, array(
     'framework'    => $framework,
     'organisation' => $organisation,
+    'rule'         => $rule,
 ));
 
 if ($data = $mform->get_data()) {

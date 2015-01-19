@@ -50,8 +50,8 @@ class rule {
                                   '*', MUST_EXIST);
 
         $instance = new static();
-        $instance->id             = $record->id;
-        $instance->organisationid = $record->organisationid;
+        $instance->update($record->organisationid, $record->applytheme);
+        $instance->update_id($record->id);
 
         return $instance;
     }
