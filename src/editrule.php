@@ -41,13 +41,6 @@ $shortprefix = 'org';
 $hierarchy   = hierarchy::load_hierarchy($prefix);
 $context     = context_system::instance();
 
-$fileopts = array(
-    'subdirs'        => 0,
-    'maxbytes'       => $CFG->maxbytes,
-    'maxfiles'       => 1,
-    'accepted_types' => array('image'),
-);
-
 $organisation = $hierarchy->get_item($organisationid);
 if ($organisation === false) {
     print_error('invalidorg', 'local_themecobrand', new moodle_url('managerules.php'));
@@ -61,7 +54,6 @@ try {
 }
 
 $mform = new rule_form(null, array(
-    'fileopts'     => $fileopts,
     'framework'    => $framework,
     'organisation' => $organisation,
 ));
@@ -84,12 +76,6 @@ if ($data = $mform->get_data()) {
     )));
 } else {
     $record = $rule->record();
-
-    if (isset($record->id)) {
-        $draftareaid = file_get_submitted_draft_itemid('applylogo');
-        file_prepare_draft_area($draftareaid, $context->id, 'local_themecobrand', 'applylogo', $record->id, $fileopts);
-        $record->applylogo = $draftareaid;
-    }
 
     $mform->set_data($record);
 

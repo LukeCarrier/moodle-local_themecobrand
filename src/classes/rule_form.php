@@ -38,7 +38,6 @@ class rule_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
 
-        $fileopts     = $this->_customdata['fileopts'];
         $framework    = $this->_customdata['framework'];
         $organisation = $this->_customdata['organisation'];
 
