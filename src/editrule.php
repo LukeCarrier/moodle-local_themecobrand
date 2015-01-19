@@ -67,16 +67,12 @@ $mform = new rule_form(null, array(
 ));
 
 if ($data = $mform->get_data()) {
-    $draftareainfo = file_get_draft_area_info($data->applylogo);
-
     if (!property_exists($data, 'applytheme')) {
         $data->applytheme = '';
     }
 
-    $rule->update($data->organisationid, $data->applycss, $data->applytheme, $draftareainfo['filecount']);
+    $rule->update($data->organisationid, $data->applytheme);
     $rule->commit();
-
-    file_save_draft_area_files($data->applylogo, $context->id, 'local_themecobrand', 'applylogo', $rule->get_id());
 
     redirect(new moodle_url('managerules.php', array(
         'committedorganisationid' => $organisationid,

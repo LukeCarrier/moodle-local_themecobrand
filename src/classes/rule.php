@@ -27,6 +27,8 @@
 
 namespace local_themecobrand;
 
+use theme_config;
+
 defined('MOODLE_INTERNAL') || die;
 
 /**
@@ -36,11 +38,9 @@ class rule {
     // DB tables (as per install.xml)
     const TABLE_RULES = 'local_themecobrand_rules';
 
-    protected $id,
-              $organisationid,
-              $applycss,
-              $applytheme,
-              $applylogo;
+    protected $id;
+    protected $applytheme;
+    protected $organisationid;
 
     public static function from_organisation_id($organisationid) {
         global $DB;
@@ -50,9 +50,6 @@ class rule {
         $instance = new static();
         $instance->id             = $record->id;
         $instance->organisationid = $record->organisationid;
-        $instance->applycss       = $record->applycss;
-        $instance->applytheme     = $record->applytheme;
-        $instance->applylogo      = $record->applylogo;
 
         return $instance;
     }
@@ -83,7 +80,7 @@ SQL;
 
         list($insql, $params) = $DB->get_in_or_equal($parentids);
         $sql = <<<SQL
-SELECT organisationid, id, applycss, applylogo, applytheme
+SELECT organisationid, applytheme, id
 FROM {local_themecobrand_rules}
 WHERE organisationid {$insql}
 SQL;
@@ -95,18 +92,16 @@ SQL;
 
                 $instance = new static();
                 $instance->update_id($record->id);
-                $instance->update($record->organisationid, $record->applycss, $record->applytheme, $record->applylogo);
+                $instance->update($record->organisationid, $record->applytheme);
 
                 return $instance;
             }
         }
     }
 
-    public function update($organisationid, $applycss, $applytheme, $applylogo) {
+    public function update($organisationid, $applytheme) {
         $this->organisationid = $organisationid;
-        $this->applycss       = $applycss;
         $this->applytheme     = $applytheme;
-        $this->applylogo      = $applylogo;
     }
 
     public function update_id($id) {
@@ -121,14 +116,6 @@ SQL;
         return $this->organisationid;
     }
 
-    public function get_css() {
-        return $this->applycss;
-    }
-
-    public function get_logo() {
-        return $this->applylogo;
-    }
-
     public function get_theme() {
         return $this->applytheme;
     }
@@ -136,9 +123,7 @@ SQL;
     public function record() {
         $record = (object) array(
             'organisationid' => $this->organisationid,
-            'applycss'       => $this->applycss,
             'applytheme'     => $this->applytheme,
-            'applylogo'      => $this->applylogo,
         );
 
         if ($this->id !== null) {
@@ -160,42 +145,6 @@ SQL;
         }
 
         return $this->id;
-    }
-
-    public static function setup_css() {
-        global $USER;
-
-        $cobrandrule = static::from_user_id($USER->id);
-        if (!$cobrandrule) {
-            return;
-        }
-
-        return new moodle_url('/local/themecobrand/css.php', array(
-            'organisationid' => $cobrandrule->get_organisation_id(),
-        ));
-    }
-
-    public static function setup_logo() {
-        global $USER;
-
-        $context = context_system::instance();
-
-        $cobrandrule = static::from_user_id($USER->id);
-        if (!$cobrandrule) {
-            return;
-        }
-
-        $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, 'local_themecobrand', 'applylogo', $cobrandrule->get_id(),
-                                     'filepath, filename', false);
-        $file = array_shift($files);
-
-        if (!($file instanceof stored_file)) {
-            return;
-        }
-
-        return moodle_url::make_pluginfile_url($context->id, 'local_themecobrand', 'applylogo', $cobrandrule->get_id(),
-                                               $file->get_filepath(), $file->get_filename());
     }
 
     /**

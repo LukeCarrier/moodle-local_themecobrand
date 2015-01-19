@@ -63,17 +63,11 @@ if ($frameworkid !== null) {
     $framework = $hierarchy->get_framework($frameworkid);
 
     // Build query now as we need the count for flexible tables.
-    $select = 'SELECT hierarchy.*';
-    $selectjoin = <<<SQL
-,
-cobrandrule.applycss   <> '' AS appliescss,
-cobrandrule.applytheme <> '' AS appliestheme,
-cobrandrule.applylogo  >  0  AS applieslogo
-SQL;
+    $select = 'SELECT hierarchy.*, cobrandrule.applytheme';
     $count  = 'SELECT COUNT(hierarchy.id)';
     $from   = " FROM {{$shortprefix}} hierarchy";
-    $join   = " LEFT JOIN {local_themecobrand_rules} cobrandrule ON cobrandrule.organisationid = hierarchy.id";
-    $where  =' WHERE frameworkid = ?';
+    $join   = ' LEFT JOIN {local_themecobrand_rules} cobrandrule ON cobrandrule.organisationid = hierarchy.id';
+    $where  = ' WHERE frameworkid = ?';
     $params = array($frameworkid);
     $order  = ' ORDER BY sortthread';
 
@@ -84,7 +78,7 @@ SQL;
     $table = new totara_table("{$prefix}-framework-index-{$frameworkid}");
     $table->define_baseurl(new moodle_url('index.php', $urlparams));
 
-    $headercolumns = array('organisationname', 'appliescss', 'applieslogo', 'appliestheme', 'actions');
+    $headercolumns = array('organisationname', 'appliestheme', 'actions');
     $headerdata    = array();
     foreach ($headercolumns as $columnname) {
         $headerdata[] = (object) array (
@@ -99,7 +93,7 @@ SQL;
     $headers = array();
 
     foreach ($headerdata as $key => $head) {
-        $columns[] = $head->type.$key;
+        $columns[] = $head->type . $key;
         $headers[] = $head->value->fullname;
     }
     $table->define_headers($headers);
@@ -111,7 +105,7 @@ SQL;
     $table->setup();
     $table->pagesize($perpage, $filteredcount);
 
-    $records = $DB->get_recordset_sql($select . $selectjoin . $from . $join . $where . $order, $params, $table->get_page_start(), $table->get_page_size());
+    $records = $DB->get_recordset_sql($select . $from . $join . $where . $order, $params, $table->get_page_start(), $table->get_page_size());
 
     $framework->description = file_rewrite_pluginfile_urls($framework->description, 'pluginfile.php', $context->id,
             'totara_hierarchy', $shortprefix.'_framework', $frameworkid);
@@ -139,9 +133,7 @@ SQL;
         foreach ($records as $record) {
             $row = array(
                 $hierarchy->display_hierarchy_item($record, false, true, $cfields, $types),
-                ($record->appliescss)   ? $tickicon : '',
-                ($record->applieslogo)  ? $tickicon : '',
-                ($record->appliestheme) ? $tickicon : '',
+                ($record->applytheme) ? $tickicon : '',
                 $OUTPUT->action_icon($editurl->out(false, array('organisationid' => $record->id)),
                                      $editicon),
             );

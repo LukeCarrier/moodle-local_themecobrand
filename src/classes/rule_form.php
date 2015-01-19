@@ -56,11 +56,6 @@ class rule_form extends moodleform {
         $mform->setType('organisationname', PARAM_ALPHA);
         $mform->setConstant('organisationname', $organisation->fullname);
 
-        $mform->addElement('textarea', 'applycss',
-                           static::get_string('applycss'),
-                           'style="font-family: monospace;"');
-        $mform->setType('applycss', PARAM_RAW);
-
         $themes = array_merge(array(
             '__default__' => static::get_string('none'),
         ), static::get_themes());
@@ -68,8 +63,7 @@ class rule_form extends moodleform {
                            static::get_string('applytheme'), $themes);
         $mform->setType('applytheme', PARAM_ALPHA);
 
-        $mform->addElement('filemanager', 'applylogo',
-                           static::get_string('applylogo'), null, $fileopts);
+        // and here we grab the theme opts
 
         $this->add_action_buttons();
     }

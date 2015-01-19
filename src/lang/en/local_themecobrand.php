@@ -26,7 +26,7 @@
  */
 
 // Module metadata
-$string['pluginname'] = 'TDM: theme co-branding';
+$string['pluginname'] = 'Theme co-branding';
 
 // Page headings
 $string['editingorgx'] = 'Editing co-branding rules for "{$a->organisation}" in "{$a->framework}"';
