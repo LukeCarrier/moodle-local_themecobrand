@@ -27,6 +27,6 @@
 
 //                  YYYYMMDDXX
 $plugin->version  = 2014012100;
-$plugin->requires = 2010112400; // 2.0
+$plugin->requires = 2013051400; // 2.5
 
 $plugin->component = 'local_themecobrand';
