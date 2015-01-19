@@ -27,6 +27,9 @@
 
 namespace local_themecobrand;
 
+use core_plugin_manager;
+use moodleform;
+
 defined('MOODLE_INTERNAL') || die;
 
 require_once "{$CFG->libdir}/formslib.php";
@@ -72,7 +75,7 @@ class rule_form extends moodleform {
     }
 
     protected static function get_themes() {
-        $pluginmgr = plugin_manager::instance();
+        $pluginmgr = core_plugin_manager::instance();
         $themes = $pluginmgr->get_plugins_of_type('theme');
 
         return array_map(function($theme) {

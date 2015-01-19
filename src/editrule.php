@@ -30,7 +30,6 @@ use local_themecobrand\rule_form;
 
 require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 require_once "{$CFG->libdir}/adminlib.php";
-require_once dirname(__FILE__) . '/locallib.php';
 
 admin_externalpage_setup('local_themecobrand_managerules');
 // todo: $PAGE->navbar->add();
