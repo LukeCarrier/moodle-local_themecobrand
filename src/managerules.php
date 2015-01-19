@@ -72,7 +72,7 @@ cobrandrule.applylogo  >  0  AS applieslogo
 SQL;
     $count  = 'SELECT COUNT(hierarchy.id)';
     $from   = " FROM {{$shortprefix}} hierarchy";
-    $join   = " LEFT JOIN mdl_local_themecobrand_rules cobrandrule ON cobrandrule.organisationid = hierarchy.id";
+    $join   = " LEFT JOIN {local_themecobrand_rules} cobrandrule ON cobrandrule.organisationid = hierarchy.id";
     $where  =' WHERE frameworkid = ?';
     $params = array($frameworkid);
     $order  = ' ORDER BY sortthread';
