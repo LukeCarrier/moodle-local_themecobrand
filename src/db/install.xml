@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<XMLDB PATH="local/tdmcobrand/db" VERSION="20140121" COMMENT="Theme co-branding">
+<XMLDB PATH="local/themecobrand/db" VERSION="20140121" COMMENT="Theme co-branding">
     <!--
       == Theme co-branding.
       ==
@@ -12,7 +12,7 @@
       -->
 
     <TABLES>
-        <TABLE NAME="local_tdmcobrand_rules" COMMENT="Stores theme co-branding ruleset">
+        <TABLE NAME="local_themecobrand_rules" COMMENT="Stores theme co-branding ruleset">
             <FIELDS>
                 <FIELD NAME="id"             TYPE="int"  LENGTH="10"  NOTNULL="true"  SEQUENCE="true"  />
                 <FIELD NAME="organisationid" TYPE="int"  LENGTH="10"  NOTNULL="true"  SEQUENCE="false" />

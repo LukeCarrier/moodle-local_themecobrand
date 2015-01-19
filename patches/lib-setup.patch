@@ -7,9 +7,9 @@ index adc3c47..61ffcfb 100644
  unset($urlthemename);
  
 +// Begin TDM: process theme change in co-branding
-+require_once "{$CFG->dirroot}/local/tdmcobrand/lib.php";
++require_once "{$CFG->dirroot}/local/themecobrand/lib.php";
 +try {
-+    local_tdmcobrand_rule::setup_theme();
++    local_themecobrand_rule::setup_theme();
 +} catch (Exception $e) { /* the site probably isn't installed yet */ }
 +// End TDM
 +

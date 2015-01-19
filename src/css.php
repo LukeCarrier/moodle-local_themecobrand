@@ -19,7 +19,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 
 $organisationid = required_param('organisationid', PARAM_INT);
 
-$rule = local_tdmcobrand_rule::from_organisation_id($organisationid);
+$rule = local_themecobrand_rule::from_organisation_id($organisationid);
 
 header('Content-Type: text/css');
 echo $rule->get_css();

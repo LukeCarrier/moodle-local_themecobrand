@@ -11,7 +11,7 @@
  */
 
 $capabilities = array(
-    'local/tdmcobrand:managerules' => array(
+    'local/themecobrand:managerules' => array(
         'riskbitmask' => RISK_CONFIG | RISK_DATALOSS | RISK_XSS,
 
         'captype'      => 'write',

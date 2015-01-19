@@ -17,7 +17,7 @@ require_once "{$CFG->libdir}/totaratablelib.php";
 define('DEFAULT_PAGE_SIZE', 50);
 define('SHOW_ALL_PAGE_SIZE', 5000);
 
-admin_externalpage_setup('local_tdmcobrand_managerules');
+admin_externalpage_setup('local_themecobrand_managerules');
 
 $prefix      = 'organisation';
 $shortprefix = 'org';
@@ -32,7 +32,7 @@ $frameworks = array_map(function($framework) {
     return $framework->fullname;
 }, $hierarchy->get_frameworks());
 
-$body = html_writer::tag('p', get_string('selectaframework', 'local_tdmcobrand'))
+$body = html_writer::tag('p', get_string('selectaframework', 'local_themecobrand'))
       . $OUTPUT->single_select(new moodle_url('managerules.php'), 'frameworkid', $frameworks);
 
 if ($frameworkid !== null) {
@@ -57,7 +57,7 @@ cobrandrule.applylogo  >  0  AS applieslogo
 SQL;
     $count  = 'SELECT COUNT(hierarchy.id)';
     $from   = " FROM {{$shortprefix}} hierarchy";
-    $join   = " LEFT JOIN mdl_local_tdmcobrand_rules cobrandrule ON cobrandrule.organisationid = hierarchy.id";
+    $join   = " LEFT JOIN mdl_local_themecobrand_rules cobrandrule ON cobrandrule.organisationid = hierarchy.id";
     $where  =' WHERE frameworkid = ?';
     $params = array($frameworkid);
     $order  = ' ORDER BY sortthread';
@@ -75,7 +75,7 @@ SQL;
         $headerdata[] = (object) array (
             'type'  => $columnname,
             'value' => (object) array(
-                'fullname' => get_string($columnname, 'local_tdmcobrand'),
+                'fullname' => get_string($columnname, 'local_themecobrand'),
             ),
         );
     }
@@ -142,6 +142,6 @@ SQL;
 }
 
 echo $OUTPUT->header(),
-     $OUTPUT->heading(get_string('managerules', 'local_tdmcobrand')),
+     $OUTPUT->heading(get_string('managerules', 'local_themecobrand')),
      $body,
      $OUTPUT->footer();

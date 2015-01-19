@@ -13,9 +13,9 @@
 /**
  * Co-branding theme rule.
  */
-class local_tdmcobrand_rule {
+class local_themecobrand_rule {
     // DB tables (as per install.xml)
-    const TABLE_RULES = 'local_tdmcobrand_rules';
+    const TABLE_RULES = 'local_themecobrand_rules';
 
     protected $id,
               $organisationid,
@@ -65,7 +65,7 @@ SQL;
         list($insql, $params) = $DB->get_in_or_equal($parentids);
         $sql = <<<SQL
 SELECT organisationid, id, applycss, applylogo, applytheme
-FROM {local_tdmcobrand_rules}
+FROM {local_themecobrand_rules}
 WHERE organisationid {$insql}
 SQL;
         $parentrules = $DB->get_records_sql($sql, $params);
@@ -151,7 +151,7 @@ SQL;
             return;
         }
 
-        return new moodle_url('/local/tdmcobrand/css.php', array(
+        return new moodle_url('/local/themecobrand/css.php', array(
             'organisationid' => $cobrandrule->get_organisation_id(),
         ));
     }
@@ -167,7 +167,7 @@ SQL;
         }
 
         $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, 'local_tdmcobrand', 'applylogo', $cobrandrule->get_id(),
+        $files = $fs->get_area_files($context->id, 'local_themecobrand', 'applylogo', $cobrandrule->get_id(),
                                      'filepath, filename', false);
         $file = array_shift($files);
 
@@ -175,7 +175,7 @@ SQL;
             return;
         }
 
-        return moodle_url::make_pluginfile_url($context->id, 'local_tdmcobrand', 'applylogo', $cobrandrule->get_id(),
+        return moodle_url::make_pluginfile_url($context->id, 'local_themecobrand', 'applylogo', $cobrandrule->get_id(),
                                                $file->get_filepath(), $file->get_filename());
     }
 
@@ -208,7 +208,7 @@ SQL;
 /**
  * Plugin file request handler.
  */
-function local_tdmcobrand_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload,
+function local_themecobrand_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload,
                                      array $options=array()) {
     if ($context->contextlevel !== CONTEXT_SYSTEM
             || $filearea !== 'applylogo') {
@@ -226,7 +226,7 @@ function local_tdmcobrand_pluginfile($course, $cm, $context, $filearea, $args, $
     }
 
     $fs = get_file_storage();
-    $file = $fs->get_file($context->id, 'local_tdmcobrand', $filearea, $itemid, $filepath, $filename);
+    $file = $fs->get_file($context->id, 'local_themecobrand', $filearea, $itemid, $filepath, $filename);
     if (!$file) {
         return false;
     }

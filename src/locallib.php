@@ -14,7 +14,7 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once "{$CFG->libdir}/formslib.php";
 
-class local_tdmcobrand_rule_form extends moodleform {
+class local_themecobrand_rule_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
 
@@ -58,6 +58,6 @@ class local_tdmcobrand_rule_form extends moodleform {
     }
 
     protected static function get_string($string) {
-        return get_string($string, 'local_tdmcobrand');
+        return get_string($string, 'local_themecobrand');
     }
 }

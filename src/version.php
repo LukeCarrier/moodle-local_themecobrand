@@ -14,4 +14,4 @@
 $plugin->version  = 2014012100;
 $plugin->requires = 2010112400; // 2.0
 
-$plugin->component = 'local_tdmcobrand';
+$plugin->component = 'local_themecobrand';
