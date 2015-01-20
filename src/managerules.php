@@ -51,7 +51,9 @@ $body = html_writer::tag('p', get_string('selectaframework', 'local_themecobrand
       . $OUTPUT->single_select(new moodle_url('managerules.php'), 'frameworkid', $frameworks);
 
 if ($frameworkid !== null) {
-    $editicon = new pix_icon('t/edit', get_string('edit'));
+    $ruleicon  = new pix_icon('t/edit',     get_string('edit'));
+    $themeicon = new pix_icon('i/settings', get_string('settings'));
+
     $editurl  = new moodle_url('editrule.php');
     $tickicon = $OUTPUT->pix_icon('t/check', get_string('yes'));
 
@@ -131,11 +133,22 @@ if ($frameworkid !== null) {
         // Figure out which custom fields are used by which types.
         $cfields = $DB->get_records($shortprefix.'_type_info_field');
         foreach ($records as $record) {
+            $ruleurl = $editurl->out(false, array(
+                'organisationid' => $record->id,
+                'form'           => 'rule',
+            ));
+            $themeurl = $editurl->out(false, array(
+                'organisationid' => $record->id,
+                'form'           => 'theme',
+            ));
+
+            $actionicons = $OUTPUT->action_icon($ruleurl,  $ruleicon)
+                         . $OUTPUT->action_icon($themeurl, $themeicon);
+
             $row = array(
                 $hierarchy->display_hierarchy_item($record, false, true, $cfields, $types),
                 ($record->applytheme) ? $tickicon : '',
-                $OUTPUT->action_icon($editurl->out(false, array('organisationid' => $record->id)),
-                                     $editicon),
+                $actionicons,
             );
             $table->add_data($row);
             ++$num_on_page;

@@ -64,10 +64,6 @@ class rule_form extends moodleform {
         $mform->setDefault('applytheme', $rule->get_theme());
         $mform->setType('applytheme', PARAM_ALPHA);
 
-        if ($theme = $rule->get_theme()) {
-            $mform->addElement('html', util::theme_settings_form($theme));
-        }
-
         $this->add_action_buttons();
     }
 
@@ -82,5 +78,14 @@ class rule_form extends moodleform {
 
     protected static function get_string($string) {
         return get_string($string, 'local_themecobrand');
+    }
+
+    public function save($data) {
+        if (!property_exists($data, 'applytheme')) {
+            $data->applytheme = '';
+        }
+
+        $rule->update($data->organisationid, $data->applytheme);
+        $rule->commit();
     }
 }

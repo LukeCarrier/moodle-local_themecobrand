@@ -32,7 +32,8 @@ $string['pluginname'] = 'Theme co-branding';
 $string['editingorgx'] = 'Editing co-branding rules for "{$a->organisation}" in "{$a->framework}"';
 
 // Errors
-$string['invalidorg'] = 'No organisation exists with the specified ID number.';
+$string['invalidform'] = 'Invalid form specified. Valid options are rule or theme.';
+$string['invalidorg']  = 'No organisation exists with the specified ID number.';
 
 // Table headings and form inputs
 $string['actions']          = 'Actions';
